@@ -24,7 +24,7 @@ def travelling_salesman(n_city: int = 30, border: int = 1000, saves: str = None,
         pairings = get_all_possible_pairings(routes)
 
         for pair in pairings:
-            if check_swap_viability(pair[0], pair[1]):
+            if check_swap_viability(pair[0], pair[1], n_city):
                 swapped = should_edges_swap(routes, pair[0], pair[1])
 
                 if swapped:

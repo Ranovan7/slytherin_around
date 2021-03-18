@@ -31,8 +31,8 @@ def get_route_distance(routes: List[Tuple[int, int]]) -> int:
     return round(distance, 2)
 
 
-def check_swap_viability(a: int, b: int):
-    if 0 in [a, b] and 9 in [a, b]:
+def check_swap_viability(a: int, b: int, length: int):
+    if 0 in [a, b] and length - 1 in [a, b]:
         return False
 
     if abs(a - b) == 1:
