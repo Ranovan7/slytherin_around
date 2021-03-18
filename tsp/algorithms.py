@@ -7,7 +7,7 @@ def simulated_annealing():
     print("Simmulated Annealing")
 
 
-def calculate_edges_swap(
+def should_edges_swap(
     routes: List[Tuple[int, int]],
     index_a: int,
     index_b: int
@@ -16,12 +16,12 @@ def calculate_edges_swap(
         euclidean_distance(routes[index_a], routes[index_a - 1]),
         euclidean_distance(routes[index_b], routes[index_b - 1])
     )
-    swaped_distance = (
+    swapped_distance = (
         euclidean_distance(routes[index_a], routes[index_b]),
         euclidean_distance(routes[index_a - 1], routes[index_b - 1])
     )
 
-    if sum(swaped_distance) < sum(current_distance):
+    if sum(swapped_distance) < sum(current_distance):
         lower = min(index_a, index_b)
         higher = max(index_a, index_b)
 
