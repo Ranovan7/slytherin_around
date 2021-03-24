@@ -24,23 +24,6 @@ def get_all_possible_pairings(
     return results
 
 
-def get_route_distance(routes: List[Tuple[int, int]]) -> int:
-    distance = 0
-    for i, route in enumerate(routes):
-        distance += euclidean_distance(route, routes[i-1])
-    return round(distance, 2)
-
-
-def check_swap_viability(a: int, b: int, length: int):
-    if 0 in [a, b] and length - 1 in [a, b]:
-        return False
-
-    if abs(a - b) == 1:
-        return False
-
-    return True
-
-
 def create_plot(routes: List[Tuple[int, int]]):
     x = [routes[r % len(routes)][0] for r in range(len(routes) + 1)]
     y = [routes[r % len(routes)][1] for r in range(len(routes) + 1)]
@@ -53,11 +36,14 @@ def animate_plot(plots, border: int, saves: str = None):
     ax = plt.axes(xlim=(0 - dev, border + dev), ylim=(0 - dev, border + dev))
     line, = ax.plot([], [], lw=2)
 
+    for i in range(10):
+        plots.append(plots[-1])
+
     def animate(i):
         line.set_data(plots[i][0], plots[i][1])
         return line,
 
-    ani = animation.FuncAnimation(fig, animate, interval=50, blit=True, frames=len(plots), repeat=False)
+    ani = animation.FuncAnimation(fig, animate, interval=100, blit=True, frames=len(plots), repeat=False)
 
     if saves:
         print("saving results...")
