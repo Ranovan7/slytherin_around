@@ -24,13 +24,17 @@ def get_all_possible_pairings(
     return results
 
 
-def create_plot(routes: List[Tuple[int, int]]) -> (List[int], List[int]):
+def create_plot(routes: List[Tuple[int, int]]) -> Tuple[List[int], List[int]]:
     x = [routes[r % len(routes)][0] for r in range(len(routes) + 1)]
     y = [routes[r % len(routes)][1] for r in range(len(routes) + 1)]
     return x, y
 
 
-def animate_plot(plots, border: int, saves: str = None):
+def animate_plot(
+    plots: List[Tuple[List[int], List[int]]],
+    border: int,
+    saves: str = None
+):
     fig = plt.figure()
     dev = round(border * 0.05)
     ax = plt.axes(xlim=(0 - dev, border + dev), ylim=(0 - dev, border + dev))

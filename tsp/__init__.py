@@ -26,7 +26,7 @@ def travelling_salesman(n_city: int = 30, border: int = 1000, saves: str = None,
             swapped = route.should_edges_swap(pair[0], pair[1])
 
             if swapped:
-                plots.append((create_plot(route.routes)))
+                plots.append(create_plot(route.routes))
                 break
 
         if not swapped or (loop_limit and i >= loop_limit):
