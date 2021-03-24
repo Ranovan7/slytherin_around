@@ -21,3 +21,15 @@
     </br>`# --saves <filename>` save result to ./tsp/examples/<filename>.gif
 - result example
     </br>![grab-landing-page](https://github.com/ranovan7/slytherin_around/blob/master/tsp/examples/30_cities.gif)
+
+### Bullet Hell
+
+- Practice for Bullet Hell movements
+- default command
+    </br>`# python main.py bullets`
+- options
+    </br>`# --border <int>` how large the graph border will be
+    </br>`# --n-frames <int>` number of frames
+    </br>`# --saves <filename>` save result to ./bullets/examples/<filename>.gif
+- result example
+    </br>![grab-landing-page](https://github.com/ranovan7/slytherin_around/blob/master/bullets/examples/prototype.gif)
