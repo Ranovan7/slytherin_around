@@ -24,7 +24,7 @@ def get_all_possible_pairings(
     return results
 
 
-def create_plot(routes: List[Tuple[int, int]]):
+def create_plot(routes: List[Tuple[int, int]]) -> (List[int], List[int]):
     x = [routes[r % len(routes)][0] for r in range(len(routes) + 1)]
     y = [routes[r % len(routes)][1] for r in range(len(routes) + 1)]
     return x, y
