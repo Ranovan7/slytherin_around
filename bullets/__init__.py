@@ -12,12 +12,12 @@ spawners = [
 ]
 
 
-def bullet_hell(border: int = 1000, n_frames: int = 650, saves: str = None):
+def bullet_hell(border: int = 1000, n_frames: int = 700, saves: str = None):
     frames = []
     skill = None
 
     for i in range(n_frames):
-        if not skill or (i + 1) % 50 == 0:
+        if not skill or (i + 1) % 70 == 0:
             Spawner = choice(spawners)
             skill = Spawner((randint(200, border), randint(200, border)))
             skill.announce()
