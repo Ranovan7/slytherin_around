@@ -17,10 +17,11 @@ def bullet_hell(border: int = 1000, n_frames: int = 700, saves: str = None):
     skill = None
 
     for i in range(n_frames):
-        if not skill or (i + 1) % 70 == 0:
-            Spawner = choice(spawners)
-            skill = Spawner((randint(200, border), randint(200, border)))
-            skill.announce()
+        if not skill or i % 70 == 0:
+            if n_frames - i >= 70:
+                Spawner = choice(spawners)
+                skill = Spawner((randint(200, border), randint(200, border)))
+                skill.announce()
 
         skill.update()
         # print(skill.get_frame())
