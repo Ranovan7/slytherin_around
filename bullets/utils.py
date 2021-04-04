@@ -30,9 +30,12 @@ def animate_frames(
         scatter.set_offsets(frames[i])
         return scatter,
 
+    plt.xticks([])
+    plt.yticks([])
     ani = animation.FuncAnimation(fig, animate, interval=20, blit=True, frames=len(frames), repeat=False)
 
     if saves:
         print("saving results...")
         ani.save(f"./bullets/examples/{saves}.gif")
+
     plt.show()

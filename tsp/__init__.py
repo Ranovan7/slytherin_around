@@ -15,6 +15,7 @@ def travelling_salesman(n_city: int = 30, border: int = 1000, saves: str = None,
     route = Route(cities)
     plots = []
 
+    print(f"TSP for {n_city} cities")
     print(f"Current Distance : {route.total_distance()}")
     print("Calculating...")
     i = 0

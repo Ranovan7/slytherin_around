@@ -47,9 +47,11 @@ def animate_plot(
         line.set_data(plots[i][0], plots[i][1])
         return line,
 
+    plt.axis("off")
     ani = animation.FuncAnimation(fig, animate, interval=100, blit=True, frames=len(plots), repeat=False)
 
     if saves:
         print("saving results...")
         ani.save(f"./tsp/examples/{saves}.gif")
+
     plt.show()
