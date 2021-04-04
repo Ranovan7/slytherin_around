@@ -17,8 +17,8 @@ def tsp(n_city: int = 30, border: int = 1000, saves: str = None):
 
 
 @app.command()
-def bullets(border: int = 1000, n_frames: int = 500, saves: str = None):
-    print("Executing Travelling Salesman Example")
+def bullets(border: int = 1000, n_frames: int = 650, saves: str = None):
+    print("Executing Bullet Hell Example")
     bullet_hell(border, n_frames, saves=saves)
 
 

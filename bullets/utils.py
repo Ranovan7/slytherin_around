@@ -2,10 +2,19 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
+import math
 
 
 def update(gen):
     return next(gen)
+
+
+def get_vectors_angle(angle: int, speed: int) -> List[List[int]]:
+    movement = [
+        speed * math.sin(math.radians(angle)),
+        speed * math.cos(math.radians(angle))
+    ]
+    return movement
 
 
 def create_frames(

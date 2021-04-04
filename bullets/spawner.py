@@ -4,63 +4,80 @@ import numpy as np
 import random
 import math
 
+from bullets.utils import get_vectors_angle
+from bullets.bullet import Bullet, LinearBullet, TurningBullet
 
-def get_vectors_angle(angle: int, speed: int) -> List[List[int]]:
-    movement = [
-        speed * math.sin(math.radians(angle)),
-        speed * math.cos(math.radians(angle))
-    ]
-    return movement
+LINE_BULLETS = [LinearBullet]
+FIREWORK_BULLETS = [LinearBullet, TurningBullet]
 
 
-class BaseSpawner:
-    speed: int = 20
-    bullets: List[List[int]] = np.array([
-        [0, -100],
-        [0, 50],
-        [0, 250],
-        [0, 450],
-        [0, 650],
-        [0, 850],
-        [0, 1050]
-    ])
+class Spawner:
+    bullets: List[Bullet] = []
+
+    def update(self):
+        for bullet in self.bullets:
+            bullet.update()
+
+    def get_frame(self) -> Tuple[List[int], List[int]]:
+        return [bullet.position for bullet in self.bullets]
+
+    def announce(self):
+        print(f"{self.__class__.__name__} spawning {self.bullets[0].__class__.__name__}")
+
+
+class HorizontalLineSpawner(Spawner):
 
     def __init__(self, location: Tuple[int, int]):
+        self.bullets = []
+        y = 0
+        angle = 0
         if random.randint(0,1) == 1:
-            self.bullets = np.add(self.bullets, [1000, 0])
-            self.speed = -20
+            y = 1000
+            angle = 180
 
-    def update(self):
-        self.bullets = np.add(self.bullets, [self.speed, 0])
-
-    def get_frame(self) -> Tuple[List[int], List[int]]:
-        return self.bullets
-
-
-class CurveSpawner(BaseSpawner):
-    rads: float = 0.0
-
-    def update(self):
-        self.bullets = np.add(self.bullets, [self.speed, get_vectors_angle(self.rads, self.speed)[1]])
-        self.rads += 8
+        Bullet = random.choice(LINE_BULLETS)
+        multiplier = 200
+        for i in range(7):
+            self.bullets.append(Bullet(
+                position=np.array([-100 + (multiplier*i), y]),
+                speed=20,
+                angle=angle
+            ))
 
 
-class BaseFireworks:
-    speed: int = 20
-    n_bullets: int = 8
-    bullets: List[List[int]] = np.array([[0, 500]] * 8)
-    angles: List[int] = np.array([
-        0, 45, 90, 135, 180, 225, 270, 315
-    ])
+class VerticalLineSpawner(Spawner):
 
-    def __init__(self, location: Tuple[int, int] = None):
-        if location:
-            self.bullets = np.array([location] * self.n_bullets)
-        else:
-            np.array([[0, 500]] * self.n_bullets)
+    def __init__(self, location: Tuple[int, int]):
+        self.bullets = []
+        x = 0
+        angle = 90
+        if random.randint(0,1) == 1:
+            x = 1000
+            angle = 270
 
-    def update(self):
-        self.bullets = np.add(self.bullets, [get_vectors_angle(angle, self.speed) for angle in self.angles])
+        Bullet = random.choice(LINE_BULLETS)
+        multiplier = 200
+        for i in range(7):
+            self.bullets.append(Bullet(
+                position=np.array([x, -100 + (multiplier*i)]),
+                speed=20,
+                angle=angle
+            ))
 
-    def get_frame(self) -> Tuple[List[int], List[int]]:
-        return self.bullets
+
+class FireworkSpawner(Spawner):
+
+    def __init__(self, location: Tuple[int, int] = None, n_bullets: int = 8):
+        self.bullets = []
+        if not location:
+            location = [0, 500]
+
+        Bullet = random.choice(FIREWORK_BULLETS)
+        multiplier = 360/n_bullets
+        for i in range(n_bullets):
+            angle = multiplier * i
+            self.bullets.append(Bullet(
+                position=np.array(location),
+                speed=20,
+                angle=angle
+            ))
