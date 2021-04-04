@@ -22,7 +22,7 @@ def animate_frames(
     saves: str = None
 ):
     fig = plt.figure()
-    dev = round(border * 0.1)
+    dev = round(border * 0.05)
     ax = plt.axes(xlim=(0 - dev, border + dev), ylim=(0 - dev, border + dev))
     scatter = plt.scatter([], [], s=30, c='r')
 
