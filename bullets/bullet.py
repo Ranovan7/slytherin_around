@@ -1,7 +1,8 @@
 from typing import List
 import numpy as np
+import random
 
-from bullets.utils import get_vectors_angle
+from bullets.utils import get_vectors_angle, get_radians_from_points
 
 
 class Bullet:
@@ -37,7 +38,7 @@ class TurningBullet(Bullet):
 class OscilatingBullet(Bullet):
     oscilation: int = 5
     upper_lim: int
-    lower_lim_lim: int
+    lower_lim: int
 
     def __init__(self, position: List[int], speed: int = 20, angle: int = 90):
         self.position = position
@@ -53,5 +54,40 @@ class OscilatingBullet(Bullet):
 
         if self.angle >= self.upper_lim or self.angle <= self.lower_lim:
             self.oscilation *= -1
+
+        return self
+
+
+class HomingBullet(Bullet):
+    target: List[int]
+    angle_diff_limit: int = 5
+
+    def __init__(self, position: List[int], speed: int = 20, angle: int = 90):
+        self.position = position
+        self.speed = speed
+        self.angle = angle
+
+        self.target = np.array([position[0] - 400, position[1] - 400])
+
+    def update(self):
+        self.update_angle(get_radians_from_points(self.position, self.target))
+        self.position = np.add(self.position, get_vectors_angle(self.angle, self.speed))
+        return self
+
+    def update_angle(self, radians):
+        if self.angle == radians:
+            return self
+
+        cw = (self.angle - radians) % 360
+        ccw = (radians - self.angle) % 360
+
+        if cw <= self.angle_diff_limit or ccw <= self.angle_diff_limit:
+            self.angle = radians
+            return self
+
+        if cw <= ccw:
+            self.angle -= self.angle_diff_limit
+        else:
+            self.angle += self.angle_diff_limit
 
         return self

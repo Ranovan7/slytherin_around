@@ -5,10 +5,10 @@ import random
 import math
 
 from bullets.utils import get_vectors_angle
-from bullets.bullet import Bullet, LinearBullet, TurningBullet, OscilatingBullet
+from bullets.bullet import Bullet, LinearBullet, TurningBullet, OscilatingBullet, HomingBullet
 
 LINE_BULLETS = [LinearBullet, OscilatingBullet]
-FIREWORK_BULLETS = [LinearBullet, TurningBullet, OscilatingBullet]
+FIREWORK_BULLETS = [LinearBullet, TurningBullet, HomingBullet]
 
 
 class Spawner:

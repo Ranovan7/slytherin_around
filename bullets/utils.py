@@ -17,6 +17,10 @@ def get_vectors_angle(angle: int, speed: int) -> List[List[int]]:
     return movement
 
 
+def get_radians_from_points(p1: List[int], p2: List[int]):
+    return math.degrees(math.atan2(p2[0] - p1[0], p2[1] - p1[1]))
+
+
 def create_frames(
     bullets: List[Tuple[int, int]]
 ) -> Tuple[List[int], List[int]]:
