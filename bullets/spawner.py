@@ -30,19 +30,20 @@ class HorizontalLineSpawner(Spawner):
 
     def __init__(self, location: Tuple[int, int]):
         self.bullets = []
+        self.Bullet = random.choice(LINE_BULLETS)
+
         y = 0
-        angle = 0
+        self.angle = 0
         if random.randint(0,1) == 1:
             y = 1000
-            angle = 180
+            self.angle = 180
 
-        Bullet = random.choice(LINE_BULLETS)
         multiplier = 200
         for i in range(7):
-            self.bullets.append(Bullet(
+            self.bullets.append(self.Bullet(
                 position=np.array([-100 + (multiplier*i), y]),
                 speed=self.speed,
-                angle=angle
+                angle=self.angle
             ))
 
 
@@ -50,19 +51,20 @@ class VerticalLineSpawner(Spawner):
 
     def __init__(self, location: Tuple[int, int]):
         self.bullets = []
+        self.Bullet = random.choice(LINE_BULLETS)
+
         x = 0
-        angle = 90
+        self.angle = 90
         if random.randint(0,1) == 1:
             x = 1000
-            angle = 270
+            self.angle = 270
 
-        Bullet = random.choice(LINE_BULLETS)
         multiplier = 200
         for i in range(7):
-            self.bullets.append(Bullet(
+            self.bullets.append(self.Bullet(
                 position=np.array([x, -100 + (multiplier*i)]),
                 speed=self.speed,
-                angle=angle
+                angle=self.angle
             ))
 
 
@@ -70,15 +72,17 @@ class FireworkSpawner(Spawner):
 
     def __init__(self, location: Tuple[int, int] = None, n_bullets: int = 8):
         self.bullets = []
-        if not location:
-            location = [0, 500]
+        self.location = location
+        self.Bullet = random.choice(FIREWORK_BULLETS)
 
-        Bullet = random.choice(FIREWORK_BULLETS)
+        if not self.location:
+            self.location = [0, 500]
+
         multiplier = 360/n_bullets
         for i in range(n_bullets):
             angle = multiplier * i
-            self.bullets.append(Bullet(
-                position=np.array(location),
+            self.bullets.append(self.Bullet(
+                position=np.array(self.location),
                 speed=self.speed,
                 angle=angle
             ))
