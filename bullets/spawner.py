@@ -13,6 +13,7 @@ FIREWORK_BULLETS = [LinearBullet, TurningBullet, OscilatingBullet]
 
 class Spawner:
     bullets: List[Bullet] = []
+    speed: int = 20
 
     def update(self):
         for bullet in self.bullets:
@@ -40,7 +41,7 @@ class HorizontalLineSpawner(Spawner):
         for i in range(7):
             self.bullets.append(Bullet(
                 position=np.array([-100 + (multiplier*i), y]),
-                speed=20,
+                speed=self.speed,
                 angle=angle
             ))
 
@@ -60,7 +61,7 @@ class VerticalLineSpawner(Spawner):
         for i in range(7):
             self.bullets.append(Bullet(
                 position=np.array([x, -100 + (multiplier*i)]),
-                speed=20,
+                speed=self.speed,
                 angle=angle
             ))
 
@@ -78,6 +79,36 @@ class FireworkSpawner(Spawner):
             angle = multiplier * i
             self.bullets.append(Bullet(
                 position=np.array(location),
-                speed=20,
+                speed=self.speed,
                 angle=angle
             ))
+
+
+class DelayedSpawner(Spawner):
+
+    def __init__(self, location: Tuple[int, int] = None, angle: int = 45):
+        self.bullets = []
+        self.location = location
+        self.angle = angle
+        self.frame_count = 0
+        self.Bullet = random.choice(FIREWORK_BULLETS)
+
+        if not self.location:
+            self.location = [0, 500]
+
+        self.add_bullet()
+
+    def update(self):
+        self.frame_count += 1
+        for bullet in self.bullets:
+            bullet.update()
+
+        if self.frame_count % 7 == 0:
+            self.add_bullet()
+
+    def add_bullet(self):
+        self.bullets.append(self.Bullet(
+            position=np.array(self.location),
+            speed=self.speed,
+            angle=self.angle * len(self.bullets)
+        ))

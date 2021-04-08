@@ -1,6 +1,6 @@
 from typing import List
 from random import randint, choice
-from bullets.spawner import HorizontalLineSpawner, VerticalLineSpawner, FireworkSpawner
+from bullets.spawner import HorizontalLineSpawner, VerticalLineSpawner, FireworkSpawner, DelayedSpawner
 from bullets.utils import animate_frames, create_frames
 
 spawners = [
@@ -8,7 +8,8 @@ spawners = [
     VerticalLineSpawner,
     FireworkSpawner,
     FireworkSpawner,
-    FireworkSpawner
+    DelayedSpawner,
+    DelayedSpawner
 ]
 
 
