@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.midbottom = self.pos
 
-    def process_input(pressed_keys):
+    def process_input(self, pressed_keys: List):
         if pressed_keys[K_LEFT]:
             self.acc.x = -ACC
         if pressed_keys[K_RIGHT]:
@@ -46,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         if pressed_keys[K_DOWN]:
             self.acc.y = ACC
 
-    def check_border():
+    def check_border(self):
         if self.pos.x > WIDTH - self.horizontal_limit:
             self.pos.x = WIDTH - self.horizontal_limit
         if self.pos.x < self.horizontal_limit:
