@@ -1,7 +1,7 @@
 import typer
 from tsp import travelling_salesman
 from bullets import bullet_hell
-from games import platformers
+from games import start_game
 
 app = typer.Typer()
 
@@ -26,7 +26,7 @@ def bullets(border: int = 1000, n_frames: int = 700, saves: str = None):
 @app.command()
 def game(name: str = "platformers"):
     print(f"Initiating Game : {name}")
-    platformers()
+    start_game()
 
 
 if __name__ == "__main__":
