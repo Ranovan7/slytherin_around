@@ -6,6 +6,7 @@ from pygame.locals import *
 from pygame.math import Vector2 as vec
 
 from games.platformers.player import Player
+from games.platformers.utils import add_sprites
 from games.platformers.master import *
 
 
@@ -22,7 +23,7 @@ def main():
     P1 = Player()
 
     all_sprites = pygame.sprite.Group()
-    all_sprites.add(P1)
+    add_sprites(all_sprites, [P1])
 
     while True:
         for event in pygame.event.get():
