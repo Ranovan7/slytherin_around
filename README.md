@@ -33,3 +33,9 @@
     </br>`# --saves <filename>` save result to ./bullets/examples/<filename>.gif
 - result example
     </br>![grab-landing-page](https://github.com/ranovan7/slytherin_around/blob/master/bullets/examples/prototype.gif)
+
+### Games
+
+- Python Game using pygame
+- default command
+    </br>`# python main.py game`
