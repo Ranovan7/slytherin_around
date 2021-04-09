@@ -6,27 +6,41 @@ import pygame
 from pygame.math import Vector2
 
 from games.platformers.utils import get_vectors_angle, get_radians_from_points
+from games.platformers.master import *
 
 
 class Bullet(pygame.sprite.Sprite):
     speed: int
     position: List[int]
     angle: int
-    surf = pygame.Surface((10, 10))
-    surf.fill((255,0,0))
-    rect = surf.get_rect()
 
-    def __init__(self, position: Tuple[int], speed: int = 10, angle: int = 90):
+    def __init__(self, position: Tuple[int], angle: int = 90):
+        super().__init__()
+
         self.position = Vector2(position)
-        self.speed = speed
+        self.velocity = Vector2(0,0)
+        self.acceleration = Vector2(0,0)
+        self.speed = 2
         self.angle = angle
+
+        self.surf = pygame.Surface((15, 15))
+        self.surf.fill((255,40,40))
+        self.rect = self.surf.get_rect()
 
 
 class LinearBullet(Bullet):
 
     def update(self):
-        self.position = np.add(self.position, get_vectors_angle(self.angle, self.speed))
-        return self
+        # self.position = np.add(self.position, get_vectors_angle(self.angle, FRIC))
+        self.acceleration = Vector2(0,0)
+
+        movement = get_vectors_angle(self.angle, FRIC)
+        self.velocity.x += movement[0] * self.speed
+        self.velocity.y += movement[1] * self.speed
+
+        self.position += self.velocity
+
+        self.rect.midbottom = self.position
 
 
 class TurningBullet(Bullet):

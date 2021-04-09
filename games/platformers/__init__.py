@@ -1,4 +1,5 @@
 import sys
+import random
 from typing import List
 
 import pygame
@@ -6,6 +7,7 @@ from pygame.locals import *
 from pygame.math import Vector2 as vec
 
 from games.platformers.player import Player
+from games.platformers.spawner import HorizontalLineSpawner
 from games.platformers.utils import add_sprites
 from games.platformers.master import *
 
@@ -25,6 +27,11 @@ def main():
     all_sprites = pygame.sprite.Group()
     add_sprites(all_sprites, [P1])
 
+    S1 = HorizontalLineSpawner((random.randint(WIDTH, HEIGHT), random.randint(WIDTH, HEIGHT)))
+    add_sprites(all_sprites, S1.get_sprites())
+    S1.announce()
+
+    i = 0
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -36,6 +43,7 @@ def main():
         for entity in all_sprites:
             displaysurface.blit(entity.surf, entity.rect)
 
+        S1.update()
         P1.update()
 
         pygame.display.update()
