@@ -9,6 +9,13 @@ def euclidean_distance(a, b):
     return((b[0] - a[0])**2 + (b[1] - a[1])**2)**0.5
 
 
+def set_mag(vec, new_mag):
+    mag = math.sqrt(vec[0]**2 + vec[1]**2)
+    if mag == 0:
+        return np.array([0, 0])
+    return np.array([(vec[0] * new_mag)/mag, (vec[1] * new_mag)/mag])
+
+
 def create_frames(
     bullets: List[Tuple[int, int]]
 ) -> Tuple[List[int], List[int]]:
