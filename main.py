@@ -28,7 +28,7 @@ def bullets(border: int = 1000, n_frames: int = 700, saves: str = None):
 def boids(
     n_birds: int = 50,
     border: int = 1500,
-    n_frames: int = 700,
+    n_frames: int = 600,
     saves: str = None
 ):
     print("Executing Boids (Bird Flock) Simulation")

@@ -29,8 +29,7 @@ def animate_frames(
     border: int,
     saves: str = None
 ):
-    fig = plt.figure()
-    dev = round(border * 0.05)
+    fig = plt.figure(figsize=(10, 10))
     ax = plt.axes(xlim=(0, border), ylim=(0, border))
     scatter = plt.scatter([], [], s=30, c='r')
 
@@ -44,6 +43,6 @@ def animate_frames(
 
     if saves:
         print("saving results...")
-        ani.save(f"./bullets/examples/{saves}.gif")
+        ani.save(f"./boids/examples/{saves}.gif")
 
     plt.show()

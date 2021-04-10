@@ -1,3 +1,4 @@
+import time
 from typing import List
 from random import randint, choice
 
@@ -13,10 +14,12 @@ def bird_flocks(
 ):
     frames = []
     flock = Flock(n_birds, border)
+    start = time.time()
 
     for i in range(n_frames):
         flock.update()
         # print(skill.get_frame())
         frames.append(flock.get_frame())
+    print(f"Emulating {n_frames} frames on {round(time.time() - start, 2)} seconds")
 
     animate_frames(frames, border, saves)
