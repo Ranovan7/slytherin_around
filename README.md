@@ -34,7 +34,7 @@
 - result example
     </br>![grab-landing-page](https://github.com/ranovan7/slytherin_around/blob/master/bullets/examples/prototype.gif)
 
-### Bullet Hell
+### Boids Simulation
 
 - Bird Flock (Boids) Simulation
 - default command
