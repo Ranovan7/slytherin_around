@@ -5,6 +5,10 @@ import numpy as np
 import math
 
 
+def euclidean_distance(a, b):
+    return((b[0] - a[0])**2 + (b[1] - a[1])**2)**0.5
+
+
 def create_frames(
     bullets: List[Tuple[int, int]]
 ) -> Tuple[List[int], List[int]]:

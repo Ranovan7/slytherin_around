@@ -27,7 +27,7 @@ def bullets(border: int = 1000, n_frames: int = 700, saves: str = None):
 @app.command()
 def boids(
     n_birds: int = 50,
-    border: int = 1000,
+    border: int = 1500,
     n_frames: int = 700,
     saves: str = None
 ):
