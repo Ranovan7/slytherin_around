@@ -1,6 +1,7 @@
 import typer
 from tsp import travelling_salesman
 from bullets import bullet_hell
+from boids import bird_flocks
 from games import start_game
 
 app = typer.Typer()
@@ -21,6 +22,12 @@ def tsp(n_city: int = 30, border: int = 1000, saves: str = None):
 def bullets(border: int = 1000, n_frames: int = 700, saves: str = None):
     print("Executing Bullet Hell Example")
     bullet_hell(border, n_frames, saves=saves)
+
+
+@app.command()
+def boids(border: int = 1000, n_frames: int = 700, saves: str = None):
+    print("Executing Boids (Bird Flock) Simulation")
+    bird_flocks(border, n_frames, saves=saves)
 
 
 @app.command()
