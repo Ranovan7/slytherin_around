@@ -48,6 +48,9 @@ class BulletHell:
 
         self.player.update()
 
+    def count_sprites(self):
+        print(f"Sprites Count : {len(self.sprites)}")
+
 
 def main():
     print("Starting...")
@@ -75,6 +78,7 @@ def main():
             displaysurface.blit(entity.surf, entity.rect)
 
         gamedata.update()
+        gamedata.count_sprites()
 
         pygame.display.update()
         FramePerSec.tick(FPS)

@@ -8,8 +8,7 @@ from games.bullet_hell.master import *
 from games.bullet_hell.utils import get_vectors_angle
 from games.bullet_hell.bullet import Bullet, LinearBullet, TurningBullet, OscilatingBullet, HomingBullet
 
-LINE_BULLETS = [LinearBullet]
-# LINE_BULLETS = [LinearBullet, OscilatingBullet]
+LINE_BULLETS = [LinearBullet, OscilatingBullet]
 FIREWORK_BULLETS = [LinearBullet, TurningBullet, HomingBullet]
 
 
@@ -37,7 +36,7 @@ class HorizontalLineSpawner(Spawner):
         y = 0
         self.angle = 180
         if random.randint(0, 1) == 1:
-            y = 1000
+            y = HEIGHT
             self.angle = 0
 
         multiplier = 200
@@ -55,16 +54,15 @@ class VerticalLineSpawner(Spawner):
         self.Bullet = random.choice(LINE_BULLETS)
 
         x = 0
-        self.angle = 90
+        self.angle = 270
         if random.randint(0, 1) == 1:
-            x = 1000
-            self.angle = 270
+            x = WIDTH
+            self.angle = 90
 
         multiplier = 200
         for i in range(7):
             self.bullets.append(self.Bullet(
                 position=np.array([x, -100 + (multiplier*i)]),
-                speed=self.speed,
                 angle=self.angle
             ))
 
