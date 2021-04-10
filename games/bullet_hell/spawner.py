@@ -4,9 +4,9 @@ import numpy as np
 import random
 import math
 
-from games.platformers.master import *
-from games.platformers.utils import get_vectors_angle
-from games.platformers.bullet import Bullet, LinearBullet, TurningBullet, OscilatingBullet, HomingBullet
+from games.bullet_hell.master import *
+from games.bullet_hell.utils import get_vectors_angle
+from games.bullet_hell.bullet import Bullet, LinearBullet, TurningBullet, OscilatingBullet, HomingBullet
 
 LINE_BULLETS = [LinearBullet]
 # LINE_BULLETS = [LinearBullet, OscilatingBullet]

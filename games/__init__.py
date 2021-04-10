@@ -1,8 +1,8 @@
-from games import platformers
+from games import bullet_hell
 
 
-def start_game(name: str = "platformers"):
-    if name == "platformers":
-        platformers.main()
+def start_game(name: str = "bullet-hell"):
+    if name == "bullet-hell":
+        bullet_hell.main()
     else:
-        platformers.main()
+        bullet_hell.main()

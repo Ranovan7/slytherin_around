@@ -6,10 +6,10 @@ import pygame
 from pygame.locals import *
 from pygame.math import Vector2 as vec
 
-from games.platformers.player import Player
-from games.platformers.spawner import HorizontalLineSpawner
-from games.platformers.utils import add_sprites
-from games.platformers.master import *
+from games.bullet_hell.player import Player
+from games.bullet_hell.spawner import HorizontalLineSpawner
+from games.bullet_hell.utils import add_sprites
+from games.bullet_hell.master import *
 
 
 def main():

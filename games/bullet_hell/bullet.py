@@ -5,8 +5,8 @@ import random
 import pygame
 from pygame.math import Vector2
 
-from games.platformers.utils import get_vectors_angle, get_radians_from_points
-from games.platformers.master import *
+from games.bullet_hell.utils import get_vectors_angle, get_radians_from_points
+from games.bullet_hell.master import *
 
 
 class Bullet(pygame.sprite.Sprite):

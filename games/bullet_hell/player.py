@@ -4,7 +4,7 @@ import pygame
 from pygame.locals import *
 from pygame.math import Vector2
 
-from games.platformers.master import *
+from games.bullet_hell.master import *
 
 
 class Player(pygame.sprite.Sprite):
