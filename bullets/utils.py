@@ -37,7 +37,7 @@ def animate_frames(
     fig = plt.figure(figsize=(10, 10))
     dev = round(border * 0.05)
     ax = plt.axes(xlim=(0 - dev, border + dev), ylim=(0 - dev, border + dev))
-    scatter = plt.scatter([], [], s=30, c='r')
+    scatter = plt.scatter([], [], s=70, c='r')
 
     def animate(i):
         scatter.set_offsets(frames[i])
