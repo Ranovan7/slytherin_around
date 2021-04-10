@@ -18,6 +18,17 @@ class Bird:
         self.velocity = np.array([random.randint(-2.0, 2.0), random.randint(-2.0, 2.0)])
         self.acceleration = np.array([0.0, 0.0])
 
+    def wrap(self, width, height):
+        if self.position[0] > width:
+            self.position[0] = 0
+        elif self.position[0] < 0:
+            self.position[0] = width
+
+        if self.position[1] > height:
+            self.position[1] = 0
+        elif self.position[1] < 0:
+            self.position[1] = height
+
     def update(self):
         self.position = np.add(self.position, self.velocity)
         self.velocity = np.clip(
@@ -54,6 +65,7 @@ class Flock:
         border: int = 1000
     ):
         self.birds: List[(int, int)] = []
+        self.border = border
         for _ in range(n_birds):
             self.birds.append(
                 Bird(np.array(
@@ -66,6 +78,7 @@ class Flock:
 
     def update(self):
         for bird in self.birds:
+            bird.wrap(self.border, self.border)
             bird.align(self.birds)
             bird.update()
 

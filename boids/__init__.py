@@ -12,7 +12,7 @@ def bird_flocks(
     saves: str = None
 ):
     frames = []
-    flock = Flock(n_birds)
+    flock = Flock(n_birds, border)
 
     for i in range(n_frames):
         flock.update()
