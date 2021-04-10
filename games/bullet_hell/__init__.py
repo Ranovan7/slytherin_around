@@ -35,6 +35,8 @@ class BulletHell:
         self.player = Player()
         self.sprites = pygame.sprite.Group()
         self.spawners = []
+        self.framecount = 100
+        self.frametrigger = 100
 
         self.add_sprites([self.player])
 
@@ -43,20 +45,24 @@ class BulletHell:
             self.sprites.add(sprite)
 
     def generate_spawner(self):
-        SpawnerObj = random.choice(SPAWNER_LIST)
-        spawner = SpawnerObj(
-            (
-                random.randint(0, WIDTH),
-                random.randint(0, HEIGHT)
+        self.framecount += 1
+        if self.framecount >= self.frametrigger:
+            SpawnerObj = random.choice(SPAWNER_LIST)
+            spawner = SpawnerObj(
+                (
+                    random.randint(0, WIDTH),
+                    random.randint(0, HEIGHT)
+                )
             )
-        )
 
-        if spawner.Bullet == HomingBullet:
-            print("Bullet is Homing Bullet")
-            spawner.target = self.player.position
+            if spawner.Bullet == HomingBullet:
+                print("Bullet is Homing Bullet")
+                spawner.target = self.player.position
 
-        self.add_spawner(spawner)
-        spawner.announce()
+            self.add_spawner(spawner)
+            spawner.announce()
+
+            self.framecount = 0
 
     def add_spawner(self, spawner):
         self.spawners.append(spawner)
@@ -97,7 +103,9 @@ def main():
         for entity in gamedata.sprites:
             displaysurface.blit(entity.surf, entity.rect)
 
+        gamedata.generate_spawner()
         gamedata.update()
+        gamedata.count_sprites()
 
         pygame.display.update()
         FramePerSec.tick(FPS)
