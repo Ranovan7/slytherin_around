@@ -14,12 +14,12 @@ class Bullet(pygame.sprite.Sprite):
     position: List[int]
     angle: int
 
-    def __init__(self, position: Tuple[int], angle: int = 90):
+    def __init__(self, position: Tuple[int], angle: int = 90, speed: float = 2.0):
         super().__init__()
 
         self.position = Vector2(position)
         self.velocity = Vector2(0,0)
-        self.speed = 2
+        self.speed = speed
         self.angle = angle
 
         self.surf = pygame.Surface((15, 15))
@@ -56,8 +56,8 @@ class OscilatingBullet(Bullet):
     upper_lim: int
     lower_lim: int
 
-    def __init__(self, position: List[int], angle: int = 90):
-        super().__init__(position, angle)
+    def __init__(self, position: List[int], angle: int = 90, speed: float = 2.0):
+        super().__init__(position, angle, speed)
 
         self.upper_lim = angle + 40
         self.lower_lim = angle - 40
@@ -82,28 +82,42 @@ class TurningBullet(Bullet):
     offset_limit: int = 50
 
     def update(self):
-        self.position = np.add(self.position, get_vectors_angle(self.angle, self.speed))
+        self.check_lifetime()
+
+        movement = get_vectors_angle(self.angle, FRIC)
+        self.velocity.x += movement[0] * self.speed
+        self.velocity.y += movement[1] * self.speed
+
+        self.position += self.velocity
+
+        self.rect.midbottom = self.position
+
         if self.offset_limit > 0:
             self.angle += self.angle_offset
             self.offset_limit -= 1
-        return self
 
 
 class HomingBullet(Bullet):
     target: List[int]
     angle_diff_limit: int = 5
 
-    def __init__(self, position: List[int], speed: int = 20, angle: int = 90):
-        self.position = position
-        self.speed = speed
-        self.angle = angle
+    def __init__(self, position: List[int], angle: int = 90, speed: float = 2.0):
+        super().__init__(position, angle, speed)
 
-        self.target = np.array([position[0] - 400, position[1] - 400])
+        self.target = Vector2(0, 0)
 
     def update(self):
+        self.check_lifetime()
+
         self.update_angle(get_radians_from_points(self.position, self.target))
-        self.position = np.add(self.position, get_vectors_angle(self.angle, self.speed))
-        return self
+
+        movement = get_vectors_angle(self.angle, FRIC)
+        self.velocity.x += movement[0] * self.speed
+        self.velocity.y += movement[1] * self.speed
+
+        self.position += self.velocity
+
+        self.rect.midbottom = self.position
 
     def update_angle(self, radians):
         if self.angle == radians:

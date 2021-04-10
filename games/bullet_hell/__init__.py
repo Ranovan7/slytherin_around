@@ -7,9 +7,23 @@ from pygame.locals import *
 from pygame.math import Vector2 as vec
 
 from games.bullet_hell.player import Player
-from games.bullet_hell.spawner import Spawner, HorizontalLineSpawner
+from games.bullet_hell.spawner import (
+    Spawner,
+    HorizontalLineSpawner,
+    VerticalLineSpawner,
+    FireworkSpawner,
+    DelayedSpawner
+)
+from games.bullet_hell.bullet import HomingBullet
 from games.bullet_hell.utils import add_sprites
 from games.bullet_hell.master import *
+
+SPAWNER_LIST = [
+    HorizontalLineSpawner,
+    VerticalLineSpawner,
+    FireworkSpawner,
+    DelayedSpawner
+]
 
 
 class BulletHell:
@@ -29,12 +43,18 @@ class BulletHell:
             self.sprites.add(sprite)
 
     def generate_spawner(self):
-        spawner = HorizontalLineSpawner(
+        SpawnerObj = random.choice(SPAWNER_LIST)
+        spawner = SpawnerObj(
             (
-                random.randint(WIDTH, HEIGHT),
-                random.randint(WIDTH, HEIGHT)
+                random.randint(0, WIDTH),
+                random.randint(0, HEIGHT)
             )
         )
+
+        if spawner.Bullet == HomingBullet:
+            print("Bullet is Homing Bullet")
+            spawner.target = self.player.position
+
         self.add_spawner(spawner)
         spawner.announce()
 
@@ -78,7 +98,6 @@ def main():
             displaysurface.blit(entity.surf, entity.rect)
 
         gamedata.update()
-        gamedata.count_sprites()
 
         pygame.display.update()
         FramePerSec.tick(FPS)

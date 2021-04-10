@@ -62,7 +62,7 @@ class VerticalLineSpawner(Spawner):
         multiplier = 200
         for i in range(7):
             self.bullets.append(self.Bullet(
-                position=np.array([x, -100 + (multiplier*i)]),
+                position=(x, -100 + (multiplier*i)),
                 angle=self.angle
             ))
 
@@ -81,8 +81,7 @@ class FireworkSpawner(Spawner):
         for i in range(n_bullets):
             angle = multiplier * i
             self.bullets.append(self.Bullet(
-                position=np.array(self.location),
-                speed=self.speed,
+                position=self.location,
                 angle=angle
             ))
 
@@ -111,7 +110,6 @@ class DelayedSpawner(Spawner):
 
     def add_bullet(self):
         self.bullets.append(self.Bullet(
-            position=np.array(self.location),
-            speed=self.speed,
+            position=self.location,
             angle=self.angle * len(self.bullets)
         ))
