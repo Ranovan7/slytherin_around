@@ -20,7 +20,6 @@
     </br>`# --border <int>` how large the graph border will be
     </br>`# --saves <filename>` save result to ./tsp/examples/<filename>.gif
 - result example
-    </br>![grab-landing-page]
     <p align="center">
       <img width="600" height="600" src="https://github.com/ranovan7/slytherin_around/blob/master/tsp/examples/30_cities.gif">
     </p>
@@ -35,7 +34,6 @@
     </br>`# --n-frames <int>` number of frames
     </br>`# --saves <filename>` save result to ./bullets/examples/<filename>.gif
 - result example
-    </br>![grab-landing-page]
     <p align="center">
       <img width="600" height="600" src="https://github.com/ranovan7/slytherin_around/blob/master/bullets/examples/prototype.gif">
     </p>
@@ -51,7 +49,6 @@
     </br>`# --n-frames <int>` number of frames
     </br>`# --saves <filename>` save result to ./boids/examples/<filename>.gif
 - result example
-    </br>![grab-landing-page]
     <p align="center">
       <img width="600" height="600" src="https://github.com/ranovan7/slytherin_around/blob/master/boids/examples/100_birds.gif">
     </p>
