@@ -9,9 +9,11 @@ class Bird:
     position:(int, int)
     velocity:(int, int)
     acceleration:(int, int)
-    perception_rad: float = 100.0
-    min_speed: float = 5.0
-    max_speed: float = 10.0
+    alignment_rad: float = 100.0
+    cohesion_rad: float = 100.0
+    separation_rad: float = 100.0
+    min_speed: float = 10.0
+    max_speed: float = 15.0
     acc_limit: float = 2.0
 
     def __init__(self, position: (int, int)):
@@ -40,32 +42,42 @@ class Bird:
         steer_align = np.array([0.0, 0.0])
         steer_cohesion = np.array([0.0, 0.0])
         steer_separation = np.array([0.0, 0.0])
-        close = 0
+        count_align = 0
+        count_cohesion = 0
+        count_separation = 0
+
         for bird in birds:
             if bird == self:
                 continue
 
             distance = self.distance(bird)
-            if distance <= self.perception_rad:
-                close += 1
+            if distance <= self.alignment_rad:
+                count_align += 1
                 steer_align = np.add(steer_align, bird.velocity)
+
+            if distance <= self.cohesion_rad:
+                count_cohesion += 0
                 steer_cohesion = np.add(steer_cohesion, bird.position)
 
+            if distance <= self.separation_rad:
+                count_separation += 0
                 diff = np.subtract(self.position, bird.position)
                 diff = diff / (distance**2)
                 steer_separation = np.add(steer_separation, diff)
 
-        if close > 0:
-            steer_align = steer_align / close
+        if count_align > 0:
+            steer_align = steer_align / count_align
             steer_align = set_mag(steer_align, self.min_speed)
             steer_align = np.subtract(steer_align, self.velocity)
 
-            steer_cohesion = steer_cohesion / close
+        if count_cohesion > 0:
+            steer_cohesion = steer_cohesion / count_cohesion
             steer_cohesion = np.subtract(steer_cohesion, self.position)
             steer_cohesion = set_mag(steer_cohesion, self.min_speed)
             steer_cohesion = np.subtract(steer_cohesion, self.velocity)
 
-            steer_separation = steer_separation / close
+        if count_separation > 0:
+            steer_separation = steer_separation / count_separation
             steer_separation = set_mag(steer_separation, self.min_speed)
             steer_separation = np.subtract(steer_separation, self.velocity)
 
@@ -80,7 +92,7 @@ class Bird:
             if bird == self:
                 continue
 
-            if self.distance(bird) <= self.perception_rad:
+            if self.distance(bird) <= self.alignment_rad:
                 close += 1
                 steering = np.add(steering, bird.velocity)
 
@@ -98,7 +110,7 @@ class Bird:
             if bird == self:
                 continue
 
-            if self.distance(bird) <= self.perception_rad:
+            if self.distance(bird) <= self.cohesion_rad:
                 close += 1
                 steering = np.add(steering, bird.position)
 
@@ -118,7 +130,7 @@ class Bird:
                 continue
 
             distance = self.distance(bird)
-            if distance <= self.perception_rad:
+            if distance <= self.separation_rad:
                 close += 1
                 diff = np.subtract(self.position, bird.position)
                 diff = diff / (distance**2)
@@ -158,10 +170,10 @@ class Flock:
     def update(self):
         for bird in self.birds:
             bird.wrap(self.border, self.border)
-            # bird.align(self.birds)
-            # bird.cohesion(self.birds)
-            # bird.separation(self.birds)
-            bird.emergence(self.birds)
+            bird.align(self.birds)
+            bird.cohesion(self.birds)
+            bird.separation(self.birds)
+            # bird.emergence(self.birds)
             bird.update()
 
     def get_frame(self):
