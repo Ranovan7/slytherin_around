@@ -8,6 +8,7 @@ numpy = "*"
 typer = "*"
 matplotlib = "*"
 pygame = "*"
+nimporter = "*"
 
 [dev-packages]
 

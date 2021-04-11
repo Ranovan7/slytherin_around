@@ -3,6 +3,7 @@ from tsp import travelling_salesman
 from bullets import bullet_hell
 from boids import bird_flocks
 from games import start_game
+from nimrod import try_nim
 
 app = typer.Typer()
 
@@ -10,6 +11,11 @@ app = typer.Typer()
 @app.command()
 def qwerty():
     print("Testing Commands")
+
+
+@app.command()
+def nim_test():
+    try_nim()
 
 
 @app.command()
