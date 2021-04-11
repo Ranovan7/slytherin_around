@@ -20,7 +20,7 @@ def try_nim():
     print(nim_seq)
     print()
 
-    n_fib = 50000000
+    n_fib = 50_000_000
 
     start = time.time()
     nim_fib = nim_math.looper(n_fib)
