@@ -15,12 +15,18 @@ class BoidsSimulation:
     birds: pygame.sprite.Group
     player: Player
 
-    def __init__(self):
+    def __init__(self, n_birds: int):
         self.player = Player()
         self.sprites = pygame.sprite.Group()
-        self.birds = []
+        self.birds: List[(int, int)] = []
+        for i in range(n_birds):
+            self.birds.append(
+                Bird((random.randint(0, WIDTH), random.randint(0, HEIGHT)),
+                id=i)
+            )
 
         self.add_sprites([self.player])
+        self.add_sprites(self.birds)
 
     def add_sprites(self, sprites):
         for sprite in sprites:
@@ -28,6 +34,7 @@ class BoidsSimulation:
 
     def update(self):
         for birds in self.birds:
+            birds.emergence(self.all_birds())
             birds.update()
 
         self.player.update()
@@ -36,7 +43,7 @@ class BoidsSimulation:
         print(f"Sprites Count : {len(self.sprites)}")
 
     def all_birds(self):
-        return self.birds + self.player
+        return self.birds + [self.player]
 
 
 def main():
@@ -49,7 +56,7 @@ def main():
     displaysurface = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Game")
 
-    gamedata = BoidsSimulation()
+    gamedata = BoidsSimulation(30)
 
     i = 0
     while True:
