@@ -8,7 +8,7 @@ def looper(n: int):
     for i in range(n):
         result.append((i+1)*2)
 
-    return result
+    return result[n-10:]
 
 
 def try_nim():
@@ -20,7 +20,7 @@ def try_nim():
     print(nim_seq)
     print()
 
-    n_fib = 5000000
+    n_fib = 50000000
 
     start = time.time()
     nim_fib = nim_math.looper(n_fib)

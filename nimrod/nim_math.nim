@@ -12,4 +12,4 @@ proc looper(n: int): seq[int] {.exportpy.} =
     for i in 1..n:
         result.add(i*2)
 
-    return result
+    return result[^10..^1]
