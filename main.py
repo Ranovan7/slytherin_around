@@ -36,9 +36,9 @@ def boids(
 
 
 @app.command()
-def game(name: str = "platformers"):
+def game(name: str = "bullet-hell"):
     print(f"Initiating Game : {name}")
-    start_game()
+    start_game(name)
 
 
 if __name__ == "__main__":

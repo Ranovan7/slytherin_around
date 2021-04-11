@@ -1,0 +1,5 @@
+HEIGHT = 1000
+WIDTH = 1000
+ACC = 0.5
+FRIC = -0.1
+FPS = 60
