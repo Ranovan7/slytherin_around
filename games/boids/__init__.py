@@ -56,7 +56,7 @@ def main():
     displaysurface = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Game")
 
-    gamedata = BoidsSimulation(30)
+    gamedata = BoidsSimulation(50)
 
     i = 0
     while True:
