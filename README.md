@@ -1,5 +1,11 @@
 # Python Implementation Examples (SlytherinAround)
 
+## Dependencies
+
+- Python >= 3.8.6
+
+- Nim Compiler >= 1.2.6
+
 ## Installation
 
 - `# mkdir .venv`
