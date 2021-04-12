@@ -23,9 +23,10 @@
 </br>`# python main.py boids`
 - options
 </br>`# --n-birds <int>` number of birds
-</br>`# --border <int>` how large the graph border will be
+</br>`# --lang <str>` either 'py' or 'nim'
 </br>`# --n-frames <int>` number of frames
 </br>`# --saves <filename>` save result to ./boids/examples/<filename>.gif
+- note : Nim is 185x faster than Python in this simulation
 - result example
 <p align="center">
   <img width="600" height="600" src="https://github.com/ranovan7/slytherin_around/blob/master/boids/examples/100_birds.gif">

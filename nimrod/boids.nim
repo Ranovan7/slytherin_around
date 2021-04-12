@@ -27,8 +27,8 @@ method set_mag(self: Vector2, new_mag: float): void =
         self.x = 0.0
         self.y = 0.0
     else:
-        self.x = self.x * mag / new_mag
-        self.y = self.y * mag / new_mag
+        self.x = self.x * new_mag / mag
+        self.y = self.y * new_mag / mag
 
 method euclidean_distance(self: Vector2, target: Vector2): float =
     var x = target.x - self.x
@@ -54,18 +54,32 @@ type Bird = ref object of RootObj
     max_speed: float
     acc_limit: float
 
+method set_attr(self: Bird): void =
+    self.alignment_rad = 100.0
+    self.cohesion_rad = 150.0
+    self.separation_rad = 100.0
+    self.min_speed = 10.0
+    self.max_speed = 15.0
+    self.acc_limit = 3.0
+
+method info(self: Bird): void =
+    # if self.id == 20:
+    # if true:
+    #     echo "Bird ", self.id, " (", self.position.x, ",", self.position.y, ")"
+    discard
+
 method get_position(self: Bird): seq[float] =
     return @[self.position.x, self.position.y]
 
 method wrap(self: Bird, width: float, height: float): void =
     if self.position.x > width:
-        self.position.x = 0
-    elif self.position.x < 0:
+        self.position.x = 0.0
+    elif self.position.x < 0.0:
         self.position.x = width
 
     if self.position.y > height:
-        self.position.y = 0
-    elif self.position.y < 0:
+        self.position.y = 0.0
+    elif self.position.y < 0.0:
         self.position.y = height
 
 method reset_acceleration(self: Bird): void =
@@ -102,7 +116,7 @@ method emergence(self: Bird, birds: seq[Bird]): void =
 
         if distance <= self.separation_rad:
             count_separation += 1
-            var diff = self.position
+            var diff = Vector2(x: self.position.x, y: self.position.y)
             diff.subtract(bird.position)
             diff.x /= distance
             diff.y /= distance
@@ -168,6 +182,14 @@ method get_frame(self: Flock, n_birds: int): seq[seq[float]] =
         results.add(bird.get_position())
     return results
 
+method set_attr(self: Flock): void =
+    for i, bird in self.birds:
+        bird.set_attr()
+
+method info(self: Flock): void =
+    for i, bird in self.birds:
+        bird.info()
+
 proc simulation(
     n_birds: int,
     border: int = 2000,
@@ -184,12 +206,15 @@ proc simulation(
             Bird(
                 id: i,
                 position: newVector2(float(rand(1..border)), float(rand(1..border))),
-                velocity: newVector2()
+                velocity: newVector2(float(rand(-10..10)), float(rand(-10..10)))
             )
         )
 
     for i in 1..n_frames:
+        if i == 1:
+            flock.set_attr()
         flock.update()
+        flock.info()
 
         frames.add(flock.get_frame(n_birds))
 
