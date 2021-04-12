@@ -95,64 +95,6 @@ class Bird:
         self.add_force(steer_cohesion)
         self.add_force(steer_separation)
 
-    def align(self, birds: List):
-        steering = np.array([0.0, 0.0])
-        close = 0
-        for bird in birds:
-            if bird == self:
-                continue
-
-            if self.distance(bird) <= self.alignment_rad:
-                close += 1
-                steering = np.add(steering, bird.velocity)
-
-        if close > 0:
-            steering = steering / close
-            steering = set_mag(steering, self.min_speed)
-            steering = np.subtract(steering, self.velocity)
-
-        self.acceleration += np.clip(steering, a_min = -self.acc_limit, a_max = self.acc_limit)
-
-    def cohesion(self, birds: List):
-        steering = np.array([0.0, 0.0])
-        close = 0
-        for bird in birds:
-            if bird == self:
-                continue
-
-            if self.distance(bird) <= self.cohesion_rad:
-                close += 1
-                steering = np.add(steering, bird.position)
-
-        if close > 0:
-            steering = steering / close
-            steering = np.subtract(steering, self.position)
-            steering = set_mag(steering, self.min_speed)
-            steering = np.subtract(steering, self.velocity)
-
-        self.acceleration += np.clip(steering, a_min = -self.acc_limit, a_max = self.acc_limit)
-
-    def separation(self, birds: List):
-        steering = np.array([0.0, 0.0])
-        close = 0
-        for bird in birds:
-            if bird == self:
-                continue
-
-            distance = self.distance(bird)
-            if distance <= self.separation_rad:
-                close += 1
-                diff = np.subtract(self.position, bird.position)
-                diff = diff / (distance**2)
-                steering = np.add(steering, diff)
-
-        if close > 0:
-            steering = steering / close
-            steering = set_mag(steering, self.min_speed)
-            steering = np.subtract(steering, self.velocity)
-
-        self.acceleration += np.clip(steering, a_min = -self.acc_limit, a_max = self.acc_limit)
-
     def distance(self, bird):
         return euclidean_distance(self.position, bird.position)
 
@@ -181,10 +123,6 @@ class Flock:
         for bird in self.birds:
             bird.wrap(self.border, self.border)
             bird.reset_acceleration()
-
-            # bird.align(self.birds)
-            # bird.cohesion(self.birds)
-            # bird.separation(self.birds)
 
             bird.emergence(self.birds)
 
