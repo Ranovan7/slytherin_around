@@ -1,10 +1,10 @@
-# Python Implementation Examples (SlytherinAround)
+# Python-Nim Implementation Examples (SlytherinAround)
 
 ## Dependencies
 
-- Python >= 3.8.6
+- Python >= 3.8
 
-- Nim Compiler >= 1.2.6
+- Nim Compiler >= 1.4
 
 ## Installation
 
