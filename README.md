@@ -29,7 +29,7 @@
 - note : Nim is 185x faster than Python in this simulation
 - result example
 <p align="center">
-  <img width="600" height="600" src="https://github.com/ranovan7/slytherin_around/blob/master/boids/examples/100_birds.gif">
+  <img width="600" height="600" src="https://github.com/ranovan7/slytherin_around/blob/master/boids/examples/500_birds.gif">
 </p>
 
 ### Travelling Salesman Problem
