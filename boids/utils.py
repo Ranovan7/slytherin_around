@@ -1,6 +1,7 @@
 from typing import List, Tuple
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import mpl_toolkits.mplot3d.axes3d as p3
 import numpy as np
 import math
 
@@ -31,7 +32,7 @@ def animate_2d_frames(
 
     plt.xticks([])
     plt.yticks([])
-    ani = animation.FuncAnimation(fig, animate, interval=20, blit=True, frames=len(frames), repeat=False)
+    ani = animation.FuncAnimation(fig, animate, interval=20, blit=True, frames=len(frames), repeat=True)
 
     if saves:
         print("saving results...")
@@ -41,37 +42,34 @@ def animate_2d_frames(
 
 
 def animate_3d_frames(
-    frames: List[Tuple[List[int], List[int], List[int]]],
+    data,
     border: int,
     saves: str = None
 ):
     fig = plt.figure()
     ax = p3.Axes3D(fig)
 
-    # Fifty lines of random 3-D lines
-    data = [Gen_RandLine(25, 3) for index in range(50)]
+    # Setting the axes properties
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_xlim3d(0, border)
+    ax.set_ylim3d(0, border)
+    ax.set_zlim3d(0, border)
+    ax.set_title('3D Boids')
 
     # Creating fifty line objects.
     # NOTE: Can't pass empty arrays into 3d version of plot()
-    scatters = [ ax.scatter(data[0][i,0:1], data[0][i,1:2], data[0][i,2:]) for i in range(data[0].shape[0]) ]
+    scatters = [ax.scatter(data[0][i,0:1], data[0][i,1:2], data[0][i,2:], c='b') for i in range(data[0].shape[0])]
 
-    # Setting the axes properties
-    ax.set_xlim3d([0.0, 1.0])
-    ax.set_xlabel('X')
-
-    ax.set_ylim3d([0.0, 1.0])
-    ax.set_ylabel('Y')
-
-    ax.set_zlim3d([0.0, 1.0])
-    ax.set_zlabel('Z')
-
-    ax.set_title('3D Test')
+    def animate_graph(n_iter, data, scatters):
+        for i in range(data[0].shape[0]):
+            scatters[i]._offsets3d = (data[n_iter][i,0:1], data[n_iter][i,1:2], data[n_iter][i,2:])
+        return scatters
 
     # Creating the Animation object
-    line_ani = animation.FuncAnimation(fig, update_lines, 25, fargs=(data, lines),
-                                       interval=50, blit=False)
-
-    plt.show()
+    ani = animation.FuncAnimation(fig, animate_graph, len(data), fargs=(data, scatters),
+                                       interval=20, repeat=True)
 
     if saves:
         print("saving results...")

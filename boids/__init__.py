@@ -1,4 +1,5 @@
 import time
+import numpy as np
 from typing import List
 from random import randint, choice
 
@@ -40,4 +41,4 @@ def bird_flocks(
     if dim == "2d":
         animate_2d_frames(frames, border, saves)
     elif dim == "3d":
-        animate_3d_frames(frames, border, saves)
+        animate_3d_frames(np.array(frames), border, saves)
