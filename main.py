@@ -34,11 +34,12 @@ def bullets(border: int = 1000, n_frames: int = 700, saves: str = None):
 def boids(
     n_birds: int = 50,
     lang: str = 'py',
+    dim: str = '2d',
     n_frames: int = 600,
     saves: str = None
 ):
     print("Executing Boids (Bird Flock) Simulation")
-    bird_flocks(n_birds, lang, n_frames, saves=saves)
+    bird_flocks(n_birds, lang, dim, n_frames, saves=saves)
 
 
 @app.command()
