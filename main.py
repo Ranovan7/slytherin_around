@@ -3,7 +3,7 @@ from tsp import travelling_salesman
 from bullets import bullet_hell
 from boids import bird_flocks
 from games import start_game
-from nimrod import try_nim
+from nimrod import try_3d_gif
 
 app = typer.Typer()
 
@@ -14,8 +14,8 @@ def qwerty():
 
 
 @app.command()
-def nim_test():
-    try_nim()
+def testing_stuff():
+    try_3d_gif()
 
 
 @app.command()
