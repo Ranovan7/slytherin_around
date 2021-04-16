@@ -134,7 +134,7 @@ class Flock:
                         [
                             random.randint(-10.0, 10.0),
                             random.randint(-10.0, 10.0),
-                            0.0 if dim == '2d' else random.randint(0.0, float(border))
+                            0.0 if dim == '2d' else random.randint(-10.0, 10.0)
                         ]
                     ),
                     id = i
