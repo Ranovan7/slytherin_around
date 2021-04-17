@@ -34,7 +34,7 @@ def bird_flocks(
             frames.append(flock.get_frame(dim=dim))
 
     elif lang == 'nim':
-        frames = boids.simulation(n_birds, border, n_frames)
+        frames = boids.simulation(n_birds, dim, border, n_frames)
 
     print(f"Emulating {n_frames} frames on {round(time.time() - start, 2)} seconds")
 

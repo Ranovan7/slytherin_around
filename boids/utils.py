@@ -24,7 +24,7 @@ def animate_2d_frames(
 ):
     fig = plt.figure(figsize=(10, 10))
     ax = plt.axes(xlim=(0, border), ylim=(0, border))
-    scatter = plt.scatter([], [], s=30, c='r')
+    scatter = plt.scatter([], [], s=30, c='b')
 
     def animate(i):
         scatter.set_offsets(frames[i])
@@ -60,7 +60,7 @@ def animate_3d_frames(
 
     # Creating fifty line objects.
     # NOTE: Can't pass empty arrays into 3d version of plot()
-    scatters = [ax.scatter(data[0][i,0:1], data[0][i,1:2], data[0][i,2:], c='b') for i in range(data[0].shape[0])]
+    scatters = [ax.scatter(data[0][i,0:1], data[0][i,1:2], data[0][i,2:], s=10, c='b') for i in range(data[0].shape[0])]
 
     def animate_graph(n_iter, data, scatters):
         for i in range(data[0].shape[0]):
