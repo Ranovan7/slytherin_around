@@ -24,6 +24,7 @@
 - options
 </br>`# --n-birds <int>` number of birds
 </br>`# --lang <str>` either 'py' or 'nim'
+</br>`# --dim <str>` either '2d' or '3d'
 </br>`# --n-frames <int>` number of frames
 </br>`# --saves <filename>` save result to ./boids/examples/<filename>.gif
 - note : Nim is 185x faster than Python in this simulation
