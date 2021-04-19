@@ -50,9 +50,9 @@ def animate_3d_frames(
     ax = p3.Axes3D(fig)
 
     # Setting the axes properties
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
+    # ax.set_xlabel('X')
+    # ax.set_ylabel('Y')
+    # ax.set_zlabel('Z')
     ax.set_xlim3d(0, border)
     ax.set_ylim3d(0, border)
     ax.set_zlim3d(0, border)

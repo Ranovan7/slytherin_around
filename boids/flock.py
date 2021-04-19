@@ -15,6 +15,7 @@ class Bird:
     min_speed: float = 10.0
     max_speed: float = 15.0
     acc_limit: float = 3.0
+    border_offset: float = 50.0
 
     def __init__(self, position: (int, int, int), velocity: (int, int, int), id: int = None):
         self.position = position
@@ -43,6 +44,22 @@ class Bird:
             self.position[2] = 0
         elif self.position[2] < 0:
             self.position[2] = depth
+
+    def border_evasion(self, width, height, depth):
+        if self.position[0] > width - self.border_offset:
+            self.acceleration[0] = -abs(self.acceleration[0])
+        elif self.position[0] < 0 + self.border_offset:
+            self.acceleration[0] = abs(self.acceleration[0])
+
+        if self.position[1] > height - self.border_offset:
+            self.acceleration[1] = -abs(self.acceleration[1])
+        elif self.position[1] < 0 + self.border_offset:
+            self.acceleration[1] = abs(self.acceleration[1])
+
+        if self.position[2] > depth - self.border_offset:
+            self.acceleration[2] = -abs(self.acceleration[2])
+        elif self.position[2] < 0 + self.border_offset:
+            self.acceleration[2] = abs(self.acceleration[2])
 
     def reset_acceleration(self):
         self.acceleration = np.array([0.0, 0.0, 0.0])
@@ -143,10 +160,11 @@ class Flock:
 
     def update(self):
         for bird in self.birds:
-            bird.wrap(self.border, self.border, self.border)
+            # bird.wrap(self.border, self.border, self.border)
             bird.reset_acceleration()
 
             bird.emergence(self.birds)
+            bird.border_evasion(self.border, self.border, self.border)
 
             bird.update()
 
