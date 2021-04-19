@@ -99,6 +99,24 @@ method wrap(self: Bird, width: float, height: float, depth: float): void =
     elif self.position.z < 0.0:
         self.position.z = depth
 
+method border_evasion(self: Bird, width: float, height: float, depth: float): void =
+    let offset: float = 50.0
+
+    if self.position.x > width - offset:
+        self.acceleration.x = -(self.acceleration.x.abs())
+    elif self.position.x < 0.0 + offset:
+        self.acceleration.x = self.acceleration.x.abs()
+
+    if self.position.y > height - offset:
+        self.acceleration.y = -(self.acceleration.y.abs())
+    elif self.position.y < 0.0 + offset:
+        self.acceleration.y = self.acceleration.y.abs()
+
+    if self.position.z > depth - offset:
+        self.acceleration.z = -(self.acceleration.z.abs())
+    elif self.position.z < 0.0 + offset:
+        self.acceleration.z = self.acceleration.z.abs()
+
 method reset_acceleration(self: Bird): void =
     self.acceleration = newVector3()
 
@@ -192,9 +210,10 @@ type Flock = ref object of RootObj
 
 method update(self: Flock): void =
     for bird in self.birds:
-        bird.wrap(self.border, self.border, self.border)
+        # bird.wrap(self.border, self.border, self.border)
         bird.reset_acceleration()
         bird.emergence(self.birds)
+        bird.border_evasion(self.border, self.border, self.border)
         bird.update()
 
 method get_frame(self: Flock, dim: string): seq[seq[float]] =
